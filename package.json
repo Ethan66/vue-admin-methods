@@ -1,8 +1,8 @@
 {
-  "name": "bl-operate-web-methods",
-  "version": "1.0.0",
+  "name": "vue-admin-methods",
+  "version": "1.0.2",
   "description": "",
-  "main": "index.js",
+  "main": "./dist/library.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js"
   },
