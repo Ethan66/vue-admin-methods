@@ -1,11 +1,11 @@
 {
   "name": "vue-admin-methods",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "",
   "main": "./dist/library.js",
   "scripts": {
     "build": "webpack --config ./webpack.config.js",
-    "publish": "webpack --config ./webpack.config.js && git push && npm publish"
+    "myPublish": "webpack --config ./webpack.config.js && git push && npm publish"
   },
   "keywords": [],
   "author": "",
