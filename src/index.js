@@ -1,3 +1,3 @@
-import basicObj from './basicObj'
+import handleBasicObj from './basicObj'
 
-export default basicObj
+export default handleBasicObj
