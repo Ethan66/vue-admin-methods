@@ -138,6 +138,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn, userBtnLis
 
   // 根据btnCode获取按钮权限和名字
   InitObj.prototype.authBtn = (btnCode, type) => {
+    !userBtnList && (userBtnList = sessionStorage.getItem('btnList'))
     if (window.btnList) { // 刷新页面的window.btnList保存的是最新的按钮权限
       userBtnList = window.btnList
       window.btnList = undefined
