@@ -1,0 +1,9 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist", // 把打包生成文件打包到dist目录，可忽略
+    "module": "es6", // 用es6的语法
+    "target": "es5", // 打包最终生成ES5语法
+    "allowJs": true, // 允许引入js文件
+    "experimentalDecorators": true // 支持装饰器
+  }
+}
