@@ -28,7 +28,7 @@ module.exports = {
     new CleanWebpackPlugin()
   ],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist'),
     filename: 'library.js',
     library: 'handleBasicObj',
     libraryTarget: 'umd' // umd: 通用的引入：import引入，commonJs引入，AMD引入
