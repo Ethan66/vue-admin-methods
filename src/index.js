@@ -1,3 +1,3 @@
-import handleBasicObj from './basicObj'
+import handleBasicObj from './basicObj.ts'
 
 export default handleBasicObj
