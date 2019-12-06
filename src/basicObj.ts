@@ -192,7 +192,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
     // 根据btnCode获取按钮权限和名字
     authBtn (btnCode, type?: string) {
       let userBtnList: { btnCode: string, btnName: string }[] = []
-      !userBtnList && (userBtnList = JSON.parse(sessionStorage.getItem('btnList')))
+      userBtnList.length === 0 && (userBtnList = JSON.parse(sessionStorage.getItem('btnList')))
       if (window.btnList) { // 刷新页面的window.btnList保存的是最新的按钮权限
         userBtnList = window.btnList
         window.btnList = undefined
