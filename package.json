@@ -1,12 +1,12 @@
 {
   "name": "vue-admin-methods",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "",
   "main": "./dist/library.js",
   "scripts": {
     "dev": "webpack-dev-server --config ./build/webpack.dev.js",
     "build": "webpack --config ./build/webpack.prod.js",
-    "myPublish": "git push && npm publish"
+    "myPublish": "git push && npm publish --registry=https://registry.npmjs.org/"
   },
   "keywords": [],
   "author": "",
