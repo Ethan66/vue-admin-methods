@@ -129,7 +129,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn, userBtnLis
   // 表格数据转换
   InitObj.prototype.formmater = function (config) {
     return function (val) {
-      if (config.constructor === Array && !Number(val)) {
+      if (config.constructor === Array && !(Number(val) === 0 || Number(val))) {
         throw new Error('当config为Array时，val必须为Number')
       }
       return config[val]
