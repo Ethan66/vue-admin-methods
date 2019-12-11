@@ -65,6 +65,8 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
     constructor (options: Ioptions) {
       if (options.modules === 'All') {
         this.modules = ['search', 'table', 'dialog']
+      } else if (typeof options.modules === 'string') {
+        this.modules = [].concat(options.modules)
       } else {
         this.modules = options.modules
       }
