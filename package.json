@@ -1,6 +1,6 @@
 {
   "name": "vue-admin-methods",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "",
   "main": "./dist/library.js",
   "scripts": {

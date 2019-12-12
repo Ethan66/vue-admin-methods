@@ -48,7 +48,11 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn, userBtnLis
             obj.prop = key
           }
         } else {
-          obj.key = key
+          if (module === 'search' && configObj[key].key) {
+            obj.key = configObj[key].key
+          } else {
+            obj.key = key
+          }
           obj.placeholder = `${placeholderObj[obj.type]}${obj.label}`
         }
         result.push(obj)
