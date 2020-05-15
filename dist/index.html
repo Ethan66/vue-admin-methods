@@ -32,7 +32,7 @@
       },
       items: {
         search: {
-          account: { label: '账号' },
+          account: { label: '账号', change () { console.log(11) } },
           name: { label: '用户名' },
           status: { label: '状态', type: 'select', options: [{ label: '允许登录', value: 1 }, { label: '禁止登录', value: 0 }] }
         },

@@ -154,7 +154,9 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
         table: { label: '', prop: '', type: 'cell', width: 80, displayStatus: 0 },
         dialog: { label: '', key: '', type: 'input', show: true, setStatus: 1 }
       }
-      let placeholderObj = { input: '请输入', number: '请输入', password: '请输入', textarea: '请输入', select: '请选择', selectMore: '请选择', selectTree: '请选择' };
+      const listeners = ['click', 'change', 'input', 'focus', 'blur']
+      const externalKeys = ['key', 'show', 'type', 'label']
+      const placeholderList = ['input','number', 'password', 'textarea'];
       (this.modules as string[]).forEach(module => {
         let configObj = items[module]
         let keys = Object.keys(configObj)
@@ -177,7 +179,24 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
             } else {
               obj.key = key
             }
-            obj.placeholder = `${placeholderObj[obj.type]}${obj.label}`
+            let prefix = placeholderList.includes(obj.type) ? '请输入' : '请选择'
+            obj.placeholder = `${prefix}${obj.label}`
+          }
+          if (module === 'search') {
+            let tmp = {}
+            externalKeys.forEach(str => {
+              tmp[str] = obj[str]
+              delete obj[str]
+            })
+            const tmpStrs = Object.keys(obj)
+            listeners.forEach(str => {
+              if (tmpStrs.includes(str)) {
+                tmp['$on'] ? tmp['$on'][str] = obj[str] : tmp['$on'] = { [str]: obj[str] }
+                delete obj[str]
+              }
+            })
+            Object.keys(obj) && (tmp['$attr'] = obj)
+            obj = tmp
           }
           result.push(obj)
         })
