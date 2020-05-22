@@ -152,10 +152,10 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
       let basicConfig = {
         search: { label: '', key: '', type: 'input', placeholder: '', show: true },
         table: { label: '', prop: '', type: 'cell', width: 80, displayStatus: 0 },
-        dialog: { label: '', key: '', type: 'input', show: true }
+        dialog: { label: '', key: '', type: 'text', show: true }
       }
       const listeners = ['click', 'change', 'input', 'focus', 'blur']
-      const externalKeys = ['key', 'show', 'type', 'label']
+      const externalKeys = ['key', 'show', 'type', 'label', 'options']
       const placeholderList = ['input','number', 'password', 'textarea'];
       (this.modules as string[]).forEach(module => {
         let configObj = items[module]
@@ -185,7 +185,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
           if (module === 'search' || module === 'dialog') {
             let tmp = {}
             externalKeys.forEach(str => {
-              tmp[str] = obj[str]
+              obj[str] !== undefined && (tmp[str] = obj[str])
               delete obj[str]
             })
             const tmpStrs = Object.keys(obj)
