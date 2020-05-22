@@ -152,7 +152,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
       let basicConfig = {
         search: { label: '', key: '', type: 'input', placeholder: '', show: true },
         table: { label: '', prop: '', type: 'cell', width: 80, displayStatus: 0 },
-        dialog: { label: '', key: '', type: 'input', show: true, setStatus: 1 }
+        dialog: { label: '', key: '', type: 'input', show: true }
       }
       const listeners = ['click', 'change', 'input', 'focus', 'blur']
       const externalKeys = ['key', 'show', 'type', 'label']
@@ -182,7 +182,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
             let prefix = placeholderList.includes(obj.type) ? '请输入' : '请选择'
             obj.placeholder = `${prefix}${obj.label}`
           }
-          if (module === 'search') {
+          if (module === 'search' || module === 'dialog') {
             let tmp = {}
             externalKeys.forEach(str => {
               tmp[str] = obj[str]
