@@ -2,16 +2,6 @@ declare global {
   interface Window { btnList: any }
 }
 
-interface IdefaultTableBtn {
-  [key: string]: {
-    name: string
-    disabled: boolean
-    show: boolean
-    code?: string
-    clickFn?: string
-  }
-}
-
 interface IdefaultDialogBtn {
   [key: string]: {
     name:string
@@ -25,9 +15,9 @@ interface IdefaultDialogBtn {
 }
 
 interface Ioptions {
-  modules: string | string[]
+  // modules: string | string[]
   btnConfig: {
-    tableBtn?: (string | { [key: number]: object })[]
+    // tableBtn?: (string | { [key: number]: object })[]
     dialogBtn?: (string | { [key: number]: object })[]
   }
   items: {
@@ -37,9 +27,9 @@ interface Ioptions {
   }
   rules?:  { [key: string]: object }
 }
-const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaultTableBtn: IdefaultTableBtn, defaultDialogBtn: IdefaultDialogBtn }): Function {
+const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: IdefaultDialogBtn }): Function {
   class InitObj {
-    modules: string | string[]
+    // modules: string | string[]
     
     searched: boolean
     showAll: boolean
@@ -63,26 +53,28 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
     allRead: boolean
     rules: {}
     constructor (options: Ioptions) {
-      if (options.modules === 'All') {
-        this.modules = ['search', 'table', 'dialog']
-      } else if (typeof options.modules === 'string') {
-        this.modules = [].concat(options.modules)
-      } else {
-        this.modules = options.modules
-      }
-      (this.modules as string[]).forEach((module) => {
+      const modules: string[] = Object.keys(options.items) as string[]
+      // if (options.modules === 'All') {
+      //   this.modules = ['search', 'table', 'dialog']
+      // } else if (typeof options.modules === 'string') {
+      //   this.modules = [].concat(options.modules)
+      // } else {
+      //   this.modules = options.modules
+      // }
+      modules.forEach((module) => {
         switch (module) {
           case 'search':
             this.initSearchObj()
             break
           case 'table':
-            this.initTableObj(options.btnConfig.tableBtn)
+            // this.initTableObj(options.btnConfig.tableBtn)
+            this.initTableObj()
             break
           case 'dialog':
             this.initDialogObj(options.btnConfig.dialogBtn)
         }
       })
-      this.initItem(options.items)
+      this.initItem(options.items, modules)
       options.rules && (this.rules = options.rules)
       return this
     }
@@ -102,7 +94,7 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
       this.tableBtn = []
       this.tablePages = { total: 0, current: 1, pageSize: 20 }
       this.chooseDataArr = []
-      this.setBtn(tableBtn, 'tableBtn')
+      // this.setBtn(tableBtn, 'tableBtn')
     }
     initDialogObj (dialogBtn: object = ['cancel', 'confirm']) {
       this.editData = {}
@@ -116,11 +108,12 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
     }
 
     setBtn (config, type) {
+      const userBtnList = JSON.parse(sessionStorage.getItem('btnList'))
       if (!Array.isArray(config)) {
         console.error('传参必须为数组')
         return false
       }
-      let basicConfig = type === 'tableBtn' ? defaultTableBtn : defaultDialogBtn
+      let basicConfig = defaultDialogBtn
       config.forEach(key => {
         if (typeof key === 'string') {
           if (!basicConfig[key]) {
@@ -137,9 +130,9 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
           let config = Object.assign({}, basicConfig[arr[0]], arr[1])
           if (config.code) {
             if ((arr[1] as { show?: boolean, [key: string]: any }).show === undefined) {
-              config.show = (this.authBtn(config.code, 'show') as boolean)
+              config.show = (this.authBtn(config.code, userBtnList, 'show') as boolean)
             }
-            config.name = (this.authBtn(config.code) as string)
+            config.name = (this.authBtn(config.code, userBtnList) as string)
           }
           this[type].push(config)
         } else {
@@ -148,16 +141,16 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
       })
     }
 
-    initItem (items) {
+    initItem (items, modules) {
       let basicConfig = {
         search: { label: '', key: '', type: 'input', placeholder: '', show: true },
-        table: { label: '', prop: '', type: 'cell', width: 80, displayStatus: 0 },
+        table: { label: '', prop: '', type: 'cell', width: 80 },
         dialog: { label: '', key: '', type: 'text', show: true }
       }
       const listeners = ['click', 'change', 'input', 'focus', 'blur']
       const externalKeys = ['key', 'show', 'type', 'label', 'options']
       const placeholderList = ['input','number', 'password', 'textarea'];
-      (this.modules as string[]).forEach(module => {
+      (modules as string[]).forEach(module => {
         let configObj = items[module]
         let keys = Object.keys(configObj)
         let result = []
@@ -215,13 +208,16 @@ const handleBasicObj = function ({ defaultTableBtn, defaultDialogBtn }: { defaul
     }
 
     // 根据btnCode获取按钮权限和名字
-    authBtn (btnCode, type?: string) {
-      let userBtnList: { btnCode: string, btnName: string }[] = []
-      userBtnList.length === 0 && (userBtnList = JSON.parse(sessionStorage.getItem('btnList')))
-      if (window.btnList) { // 刷新页面的window.btnList保存的是最新的按钮权限
-        userBtnList = window.btnList
-        window.btnList = undefined
+    authBtn (btnCode, userBtnList: any[], type?: string) {
+      // let userBtnList: { btnCode: string, btnName: string }[] = []
+      // userBtnList.length === 0 && (userBtnList = JSON.parse(sessionStorage.getItem('btnList')))
+      if (!userBtnList) {
+        throw new Error('btn权限需要存储在sessionStorage')
       }
+      // if (window.btnList) { // 刷新页面的window.btnList保存的是最新的按钮权限
+      //   this.userBtnList = window.btnList
+      //   window.btnList = undefined
+      // }
       let obj = userBtnList.find(item => item.btnCode === btnCode)
       if (obj) {
         if (type) {
