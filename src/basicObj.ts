@@ -31,8 +31,6 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
   class InitObj {
     // modules: string | string[]
     
-    searched: boolean
-    showAll: boolean
     searchItem: []
     searchValues: object
     
@@ -41,7 +39,7 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
     tableItem: []
     tableLoading: boolean
     isEdit: number
-    tableBtn: []
+    // tableBtn: []
     tablePages: { total: number, current: number, pageSize: number }
     chooseDataArr: []
     
@@ -50,7 +48,6 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
     dialogItem: []
     dialogBtn: []
     showDialogForm: boolean
-    allRead: boolean
     rules: {}
     constructor (options: Ioptions) {
       const modules: string[] = Object.keys(options.items) as string[]
@@ -80,8 +77,6 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
     }
 
     initSearchObj () {
-      this.searched = false
-      this.showAll = false
       this.searchItem = []
       this.searchValues = {}
     }
@@ -91,7 +86,7 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
       this.tableItem = []
       this.tableLoading = true
       this.isEdit = 0
-      this.tableBtn = []
+      // this.tableBtn = []
       this.tablePages = { total: 0, current: 1, pageSize: 20 }
       this.chooseDataArr = []
       // this.setBtn(tableBtn, 'tableBtn')
@@ -102,7 +97,6 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
       this.dialogItem = []
       this.dialogBtn = []
       this.showDialogForm = false
-      this.allRead = false
       this.rules = {}
       this.setBtn(dialogBtn, 'dialogBtn')
     }
