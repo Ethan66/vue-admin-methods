@@ -154,6 +154,7 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
             if (key === 'btn') {
               obj.type = 'btn'
               !obj.label && (obj.label = '操作')
+              !obj.fixed && (obj.fixed = 'right')
             } else if (key === 'selection') {
               obj.type = 'selection'
               obj.width = 50
