@@ -71,7 +71,7 @@ const handleBasicObj = function ({ defaultDialogBtn }: { defaultDialogBtn: Idefa
             this.initTableObj()
             break
           case 'dialog':
-            this.initDialogObj(options.btnConfig.dialogBtn)
+            this.initDialogObj(options.btnConfig && options.btnConfig.dialogBtn)
         }
       })
       this.initItem(options.items, modules)
