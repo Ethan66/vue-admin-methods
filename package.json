@@ -7,7 +7,7 @@
   "typings": "dist/types/index.d.ts",
   "scripts": {
     "lint": "tslint --project tsconfig.json --fix",
-    "build": "npm run lint && gulp",
+    "build": "npm run lint && gulp && typedoc",
     "test": "jest --coverage"
   },
   "keywords": [],
