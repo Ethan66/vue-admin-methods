@@ -1,14 +1,15 @@
 {
   "name": "vue-admin-methods",
-  "version": "1.0.25",
+  "version": "1.0.34",
   "description": "",
-  "main": "./dist/library.js",
-  "module": "dist/library.js",
-  "typings": "dist/types/index.d.ts",
+  "main": "./dist/index.js",
+  "module": "dist/index.js",
+  "types": "./dist/types/index.d.ts",
   "scripts": {
     "lint": "tslint --project tsconfig.json --fix",
     "build": "npm run lint && gulp && typedoc",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "pub": "npm publish --registry=https://registry.npmjs.org/"
   },
   "keywords": [],
   "author": "",
