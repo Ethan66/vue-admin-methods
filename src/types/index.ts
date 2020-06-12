@@ -1,15 +1,114 @@
-interface Is {
+interface BOM {
   /**
    *
-   * 判断是否是数组
-   * @param value 传入需要判断的变量
-   * @return {boolean} true | false
+   * 获取url上search的value
+   * @param name 传入url里需要获取value的key
+   * @return {string}
    * ``` typescript
-   * utils.isArray([1, 2])    // true
+   * utils.getUrlParam('username')    // true
    * ```
    *
    */
-  isArray (value: any): boolean
+  getUrlParam (name: string): string
+
+}
+
+interface ENV {
+  /**
+   *
+   * 获取设备系统
+   * @return {string} Android | IOS | winPhone | unknown
+   * ``` typescript
+   * utils.getClient()    // Android
+   * ```
+   */
+  getClient (): string
+
+  /**
+   *
+   * 判断当前浏览器是移动端还是pc端
+   * @return {boolean} pc: true; mobile: false
+   * ``` typescript
+   * const env = utils.isPc()
+   * ```
+   */
+  isPc (): boolean
+
+  /**
+   *
+   * 获取手机具体型号
+   * @return {string} huawei
+   * ``` typescript
+   * const ipone = utils.getPhoneType()
+   * ```
+   */
+  getPhoneType (): string
+
+  /**
+   *
+   * 判断IE版本
+   * @return {number | string} -1: 非IE; 6 - 11: IE6-IE11版本; edge: Edge浏览器;
+   * ``` typescript
+   * const ieVersion = utils.getIEVersion()
+   * ```
+   */
+  getIEVersion (): string | number
+}
+
+interface FORMAT {
+  /**
+   *
+   * 时间戳转化
+   * @return {string}
+   * ``` typescript
+   * const date = utils.formatDate(123323423423)
+   * ```
+   */
+  formatDate (now: number | string, fmt?: string): string
+}
+
+interface METHODS {
+  /**
+   *
+   * 节流函数
+   * @return {Function}
+   * ``` typescript
+   * utils.throttle(function () {console.log(1)})
+   * ```
+   */
+  throttle (fn: Function, delay?: number): Function
+
+  /**
+   *
+   * 防抖函数
+   * @return {Function}
+   * ``` typescript
+   * utils.debounce(function () {console.log(1)})
+   * ```
+   */
+  debounce (fn: Function, delay?: number): Function
+}
+
+interface VERIFY {
+  /**
+   *
+   * 验证合法手机号
+   * @return {boolean}
+   * ``` typescript
+   * const isMobile = utils.isMobile('132sdfsdf') // false
+   * ```
+   */
+  isMobile (mobile: string | number): boolean
+
+  /**
+   *
+   * 验证是否是合法邮箱格式
+   * @return {boolean}
+   * ``` typescript
+   * const isEmail = utils.idEmail('132sdfsdf') // false
+   * ```
+   */
+  isEmail (email: string): boolean
 }
 
 /**
@@ -17,4 +116,4 @@ interface Is {
  * @ignore
  *
  */
-export interface Types extends Is {}
+export interface Types extends BOM, ENV, FORMAT, METHODS, VERIFY {}

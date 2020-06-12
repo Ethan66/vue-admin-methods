@@ -1,4 +1,8 @@
-import * as is from './core/is'
+import * as BOM from './core/BOM'
+import * as env from './core/env'
+import * as format from './core/format'
+import * as methods from './core/methods'
+import * as verify from './core/verify'
 import { Types } from './types'
 
 export * from './types/index' // 目的：打包后的type输出文件会引入./types/index文件
@@ -10,7 +14,7 @@ export * from './types/index' // 目的：打包后的type输出文件会引入.
 
 function initUtils (): Types {
   const instance = Object.create(null)
-  const arr = [is]
+  const arr = [BOM, env, format, methods, verify]
 
   arr.forEach(obj => {
     Object.getOwnPropertyNames(obj).forEach(key => {

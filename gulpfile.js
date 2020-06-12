@@ -26,6 +26,9 @@ async function task_ts () {
   
       sourceMaps(),
       uglify(),
+    ],
+    external: [
+      'mobile-detect'
     ]
   });
 
