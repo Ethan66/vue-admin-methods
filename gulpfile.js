@@ -32,7 +32,7 @@ async function task_ts () {
   await bundle.write({ // 输出
     file: pkg.main,
     format: 'umd',
-    name: pkg.name,
+    name: pkg.name.split('-').slice(1).join('_'),
     sourcemap: false
   })
 }
