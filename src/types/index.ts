@@ -46,6 +46,16 @@ interface ENV {
 
   /**
    *
+   * 返回当前浏览器类型和操作系统版本
+   * @return {string} { brower: 'Chrome', system: 'Windows 10.0' }
+   * ``` typescript
+   * const system = utils.getSystemVersion()
+   * ```
+   */
+  getSystemVersion (): { browser: string, system: string }
+
+  /**
+   *
    * 判断IE版本
    * @return {number | string} -1: 非IE; 6 - 11: IE6-IE11版本; edge: Edge浏览器;
    * ``` typescript

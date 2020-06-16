@@ -70,6 +70,43 @@ export function isPc (): boolean {
 /**
  *
  * @ignore
+ *
+ */
+interface Isystem {
+  browser: string
+  system: string
+}
+
+/**
+ *
+ * @ignore
+ * @return 返回当前浏览器类型和操作系统版本
+ * { brower: 'Chrome', system: 'Windows 10.0' }
+ *
+ */
+export function getSystemVersion (): { browser: string, system: string } {
+  const userAgent = navigator.userAgent
+  let systemObj = {
+    system: '',
+    browser: 'IE'
+  }
+  systemObj.system = userAgent.replace(/.+(Windows ).+?([\d\.]+).+/g, '$1$2')
+  if (!systemObj.system) { // mac版本
+    systemObj.system = userAgent.replace(/.+(Mac.+?)\).+/g, RegExp.$1)
+    if (navigator.vendor.includes('Google')) {
+      systemObj.browser = 'Chrome'
+      return systemObj
+    }
+  }
+  if (systemObj.browser === 'IE') {
+    systemObj.browser = ['Chrome', 'Firefox', 'Opera', 'Safari'].find(item => userAgent.includes(item)) || ''
+  }
+  return systemObj
+}
+
+/**
+ *
+ * @ignore
  * @return {number | string} 判断IE版本
  * -1: 非IE
  * 6 - 11: IE6-IE11版本
